@@ -19,12 +19,6 @@ jobs:
       props: ${{ steps.parseProps.outputs.props }}
       comment-id: ${{ steps.issueComment.outputs.comment-id }}
     steps:
-      - name: Parse issue
-        id: parseIssue
-        uses: onmax/issue-form-parser@v1.5
-        with:
-          issue_number: ${{ github.event.issue.number }}
-
       - name: Checkout sources
         uses: actions/checkout@v4
 
@@ -36,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Debug
+        run: echo ${{ toJson(github.event.issue.body) }}
+
       - name: Read and validate properties txt file
         id: parseProps
         run: |
@@ -44,7 +41,7 @@ jobs:
                  contains(github.event.issue.labels.*.name, 'tools') && 'tool' ||
                  contains(github.event.issue.labels.*.name, 'mode') && 'mode' ||
                  contains(github.event.issue.labels.*.name, 'examples') && 'examples' }}" \
-            "${{ fromJson(steps.parseIssue.outputs.payload).properties_url }}"
+            "{{ "hi" }}"
 
       - name: add comment to issue
         id: issueComment
