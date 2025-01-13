@@ -39,10 +39,6 @@ jobs:
       - name: Read and validate properties txt file
         id: parseProps
         run: |
-          echo "${{ contains(github.event.issue.labels.*.name, 'library') && 'library' || 
-                 contains(github.event.issue.labels.*.name, 'tools') && 'tool' ||
-                 contains(github.event.issue.labels.*.name, 'mode') && 'mode' ||
-                 contains(github.event.issue.labels.*.name, 'examples') && 'examples' }}" \
           python -u scripts/parse_and_validate_properties_txt.py \
             "${{ contains(github.event.issue.labels.*.name, 'library') && 'library' || 
                  contains(github.event.issue.labels.*.name, 'tools') && 'tool' ||
